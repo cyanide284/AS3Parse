@@ -1,16 +1,17 @@
 package com.as3.crawl;
 
 import java.io.IOException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class APICrawler {
 
-	public void createLinks(ArrayList APILinks) throws NoSuchAlgorithmException {
+	public void createLinks(ArrayList<String> APILinks) throws NoSuchAlgorithmException {
 
 		String test = APILinks.get(6).toString();
 		System.out.println(test);
@@ -19,17 +20,38 @@ public class APICrawler {
 		System.out.println(generatedURL);
 
 		try {
-			Document doc = Jsoup.connect(generatedURL).get();
-			String title = doc.html();
-			System.out.println(title);
+			Document doc = Jsoup
+					.connect(
+							"http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/utils/ByteArray.html")
+					.get();
 			
-//			byte[] bytesOfMessage = generatedURL.getBytes("UTF-8");
-//			MessageDigest md = MessageDigest.getInstance("MD5");
-//			byte[] thedigest = md.digest(bytesOfMessage);
-//			
-//			for(byte b:thedigest){
-//				System.out.println(b);
-//			}
+			Element methodTable = doc.getElementById("summaryTableMethod");
+			Elements links = methodTable.getElementsByClass("signatureLink");
+
+			ArrayList<String> clears = new ArrayList<String>();
+
+			for (Element link : links) {
+				String clear = link.getElementsByAttributeValue("href", "#clear()").toString();
+				if (!clear.isEmpty()) {
+					clears.add(clear);
+				}
+			}
+			
+			for(String clear:clears){
+				System.out.println(clear);
+			}
+
+			// System.out.println(links);
+
+			// System.out.println(title);
+
+			// byte[] bytesOfMessage = generatedURL.getBytes("UTF-8");
+			// MessageDigest md = MessageDigest.getInstance("MD5");
+			// byte[] thedigest = md.digest(bytesOfMessage);
+			//
+			// for(byte b:thedigest){
+			// System.out.println(b);
+			// }
 
 		} catch (IOException ioe) {
 			ioe.printStackTrace();

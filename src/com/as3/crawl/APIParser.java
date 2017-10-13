@@ -38,7 +38,7 @@ public class APIParser {
 				APILinks.add(linkHref.replaceAll("\\.", "/"));
 			}
 			new APICrawler().createLinks(APILinks);
-			//System.out.println(count);
+			System.out.println(count);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
