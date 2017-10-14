@@ -25,34 +25,9 @@ public class APICrawler {
 							"http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/utils/ByteArray.html")
 					.get();
 			
-			Element methodTable = doc.getElementById("summaryTableMethod");
-			Elements links = methodTable.getElementsByClass("signatureLink");
-
-			ArrayList<String> clears = new ArrayList<String>();
-
-			for (Element link : links) {
-				String clear = link.getElementsByAttributeValue("href", "#clear()").toString();
-				if (!clear.isEmpty()) {
-					clears.add(clear);
-				}
-			}
+			Elements links = doc.getElementsByAttributeValue("href", "#clear()");
+			System.out.println(links);
 			
-			for(String clear:clears){
-				System.out.println(clear);
-			}
-
-			// System.out.println(links);
-
-			// System.out.println(title);
-
-			// byte[] bytesOfMessage = generatedURL.getBytes("UTF-8");
-			// MessageDigest md = MessageDigest.getInstance("MD5");
-			// byte[] thedigest = md.digest(bytesOfMessage);
-			//
-			// for(byte b:thedigest){
-			// System.out.println(b);
-			// }
-
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
