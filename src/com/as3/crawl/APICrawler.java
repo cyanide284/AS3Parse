@@ -16,7 +16,7 @@ public class APICrawler {
 		String fixedURL = "http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/";
 		BufferedWriter bw = null;
 		try {
-			 bw = new BufferedWriter(new FileWriter("/home/f4lc0n/Desktop/crawl.txt"));
+			 bw = new BufferedWriter(new FileWriter("../../../..//crawl.txt"));
 			 for (String link : APILinks) {
 					String generatedURL = fixedURL + link.toString() + ".html";
 					
